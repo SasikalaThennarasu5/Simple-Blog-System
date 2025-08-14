@@ -1,21 +1,27 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Simple Blog</h2>
-<a href="{{ url_for('add_post') }}" class="btn btn-primary mb-3">Add New Post</a>
 
+<!DOCTYPE html>
+<html>
+<head><title>Blog</title></head>
+<body>
+<h1>Blog</h1>
+<form action="/add" method="POST">
+    <input name="title" placeholder="Title" required>
+    <textarea name="content" placeholder="Content" required></textarea>
+    <input name="author" placeholder="Author" required>
+    <button type="submit">Add Post</button>
+</form>
+<hr>
 {% for post in posts %}
-<div class="card mb-3">
-    <div class="card-body">
-        <h4>{{ post.title }}</h4>
-        <p>{{ post.content }}</p>
-        <small class="text-muted">By {{ post.author }} | {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
-        <div class="mt-2">
-            <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-warning btn-sm">Edit</a>
-            <a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete this post?')">Delete</a>
-        </div>
-    </div>
-</div>
-{% else %}
-<p>No blog posts yet.</p>
+    <h2>{{ post.title }} ({{ post.author }})</h2>
+    <p>{{ post.content }}</p>
+    <form action="/update/{{ post.id }}" method="POST">
+        <input name="title" value="{{ post.title }}">
+        <textarea name="content">{{ post.content }}</textarea>
+        <input name="author" value="{{ post.author }}">
+        <button type="submit">Update</button>
+    </form>
+    <a href="/delete/{{ post.id }}">Delete</a>
+    <hr>
 {% endfor %}
-{% endblock %}
+</body>
+</html>
