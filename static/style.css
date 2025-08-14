@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.flash.success {
+    background: #d4edda;
+    padding: 10px;
+    border: 1px solid #155724;
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+}
